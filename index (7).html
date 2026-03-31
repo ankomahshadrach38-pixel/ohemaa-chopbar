@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ohemaa Chopbar – Ofankor Barrier, Accra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red:#C8102E; --red-dark:#9B0C22; --red-light:#F5E6E9;
+      --white:#FFFDF9; --cream:#FDF4EC; --black:#1A0A0A;
+      --gray:#5C3D3D; --gold:#D4A017;
+      --bg:#0F0F0F; --surface:#1A1A1A; --surface2:#222; --border:#2E2E2E;
+      --text:#F0EDE8; --text-muted:#888;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+    #sitePage{display:block}
+    #adminPage{display:none}
+    nav{position:fixed;top:0;width:100%;z-index:100;background:var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:64px;box-shadow:0 2px 20px rgba(200,16,46,.4)}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--white);text-decoration:none}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:rgba(255,253,249,.85);font-size:.875rem;font-weight:500;text-decoration:none;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-admin-link{color:rgba(255,253,249,.3)!important;font-size:.7rem!important}
+    .nav-admin-link:hover{color:rgba(255,253,249,.6)!important}
+    .hero{min-height:100vh;background:var(--red);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:100px 5vw 60px;position:relative;overflow:hidden}
+    .hero-img-frame{width:420px;height:420px;border-radius:50%;overflow:hidden;border:6px solid rgba(255,253,249,.15);box-shadow:0 0 0 20px rgba(255,253,249,.06),0 0 0 40px rgba(255,253,249,.03),0 20px 60px rgba(0,0,0,.4);animation:float 6s ease-in-out infinite}
+    .hero-img-frame img{width:100%;height:100%;object-fit:cover}
+    .hero-image-wrap{display:flex;align-items:center;justify-content:center}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    .hero-tag{display:inline-block;background:rgba(255,253,249,.15);color:var(--white);font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;border-radius:2rem;margin-bottom:1.4rem;border:1px solid rgba(255,253,249,.2)}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:900;line-height:1.05;color:var(--white);margin-bottom:1rem}
+    .hero h1 span{color:var(--gold)}
+    .hero-sub{color:rgba(255,253,249,.75);font-size:1.05rem;line-height:1.7;max-width:420px;margin-bottom:2rem}
+    .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);color:var(--red);font-weight:700;font-size:.95rem;padding:.85rem 2rem;border-radius:.35rem;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,0,0,.2)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.25)}
+    .btn-secondary{display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:var(--white);font-weight:600;font-size:.95rem;padding:.85rem 2rem;border-radius:.35rem;border:2px solid rgba(255,253,249,.45);text-decoration:none;transition:background .2s,border-color .2s}
+    .btn-secondary:hover{background:rgba(255,253,249,.1);border-color:rgba(255,253,249,.7)}
+    .strip{background:var(--gold);padding:.75rem 5vw;display:flex;align-items:center;gap:3rem;overflow:hidden;white-space:nowrap;font-weight:700;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--black)}
+    .strip span{display:inline-flex;align-items:center;gap:.6rem}
+    .section{padding:100px 5vw}
+    .section-label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem}
+    .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:900;line-height:1.1;margin-bottom:3rem;color:var(--black)}
+    .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+    .menu-card{border-radius:.85rem;overflow:hidden;background:var(--white);box-shadow:0 2px 16px rgba(0,0,0,.08);border:1.5px solid rgba(200,16,46,.08);transition:transform .25s,box-shadow .25s}
+    .menu-card:hover{transform:translateY(-5px);box-shadow:0 14px 40px rgba(200,16,46,.15)}
+    .menu-card-img{width:100%;height:190px;object-fit:cover;display:block;background:var(--cream)}
+    .menu-card-body{padding:1.1rem 1.2rem}
+    .menu-card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--black);margin-bottom:.4rem}
+    .menu-card-desc{font-size:.82rem;color:var(--gray);line-height:1.6}
+    .menu-card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.7rem;flex-wrap:wrap;gap:.4rem}
+    .menu-card-tag{display:inline-block;background:var(--red-light);color:var(--red);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .65rem;border-radius:2rem}
+    .menu-card-price{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:900;color:var(--red)}
+    .menu-card.unavailable{opacity:.45;filter:grayscale(1)}
+    .unavailable-badge{display:inline-block;background:#666;color:#fff;font-size:.7rem;font-weight:700;padding:.15rem .6rem;border-radius:2rem;margin-left:.4rem}
+    .order-section{background:var(--black);padding:100px 5vw;text-align:center;position:relative;overflow:hidden}
+    .order-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(200,16,46,.25) 0%,transparent 65%)}
+    .order-section .section-label{color:var(--gold)}
+    .order-section .section-title{color:var(--white);margin-bottom:1rem}
+    .order-section p{color:rgba(255,253,249,.6);max-width:500px;margin:0 auto 2.5rem;font-size:1rem;line-height:1.7}
+    .btn-whatsapp{display:inline-flex;align-items:center;gap:.75rem;background:#25D366;color:#fff;font-weight:700;font-size:1.05rem;padding:1rem 2.5rem;border-radius:.5rem;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(37,211,102,.35);position:relative;z-index:1}
+    .btn-whatsapp:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,.4)}
+    .about-section{background:var(--red-light);padding:100px 5vw;display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center}
+    .about-visual{border-radius:1rem;overflow:hidden;min-height:380px;box-shadow:8px 8px 0 var(--red)}
+    .about-visual img{width:100%;height:380px;object-fit:cover;display:block}
+    .about-text p{color:var(--gray);line-height:1.8;font-size:.97rem;margin-bottom:1rem}
+    .facts{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+    .fact{text-align:center}
+    .fact-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--red);line-height:1}
+    .fact-label{font-size:.78rem;color:var(--gray);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+    .contact-section{background:var(--white);padding:100px 5vw;display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:start}
+    .contact-info h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;margin-bottom:1.5rem;color:var(--black)}
+    .contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.4rem}
+    .contact-icon{width:42px;height:42px;border-radius:.4rem;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .contact-item-text p:first-child{font-weight:600;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gray)}
+    .contact-item-text p:last-child{font-size:.97rem;color:var(--black);margin-top:.15rem}
+    .contact-item-text a{color:var(--red);text-decoration:none}
+    .contact-item-text a:hover{text-decoration:underline}
+    .social-links{display:flex;gap:.85rem;margin-top:1.8rem;flex-wrap:wrap}
+    .social-link{display:inline-flex;align-items:center;gap:.55rem;font-size:.85rem;font-weight:600;padding:.6rem 1.2rem;border-radius:2rem;text-decoration:none;transition:opacity .2s,transform .2s;color:#fff}
+    .social-link:hover{opacity:.88;transform:translateY(-2px)}
+    .social-link svg{width:18px;height:18px;flex-shrink:0;fill:#fff}
+    .social-link.whatsapp{background:#25D366}
+    .social-link.instagram{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+    .social-link.gmail{background:#EA4335}
+    .map-placeholder{background:var(--cream);border-radius:.75rem;min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;border:2px dashed rgba(200,16,46,.25);color:var(--gray);text-align:center;padding:2rem}
+    .map-placeholder .map-emoji{font-size:3rem}
+    .map-placeholder strong{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--black)}
+    footer{background:var(--black);padding:2.5rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    footer p{color:rgba(255,253,249,.45);font-size:.82rem}
+    footer .footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--white)}
+    @media(max-width:768px){
+      .hero{grid-template-columns:1fr;padding:90px 5vw 60px}
+      .hero-image-wrap{display:none}
+      .about-section,.contact-section{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+    /* ORDER BUILDER */
+    .order-step{margin-bottom:1.5rem}
+    .order-step-label{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,253,249,.6);margin-bottom:.85rem}
+    .order-chips{display:flex;flex-wrap:wrap;gap:.65rem}
+    .order-chip{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,253,249,.07);border:1.5px solid rgba(255,253,249,.18);color:rgba(255,253,249,.85);font-size:.9rem;font-weight:600;padding:.6rem 1.1rem;border-radius:2rem;cursor:pointer;transition:all .18s;user-select:none}
+    .order-chip:hover{background:rgba(255,253,249,.14);border-color:rgba(255,253,249,.4)}
+    .order-chip.selected{background:var(--gold);border-color:var(--gold);color:#1A0A0A}
+    .order-chip.unavail{opacity:.35;cursor:not-allowed;pointer-events:none;text-decoration:line-through}
+    .order-chip .chip-price{font-size:.75rem;font-weight:700;opacity:.7}
+    #sendOrderBtn:not([disabled]){opacity:1;cursor:pointer}
+    #sendOrderBtn:not([disabled]):hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(37,211,102,.4)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    .hero-tag{animation:fadeUp .6s ease .1s both}
+    .hero h1{animation:fadeUp .6s ease .25s both}
+    .hero-sub{animation:fadeUp .6s ease .4s both}
+    .hero-btns{animation:fadeUp .6s ease .55s both}
+
+    /* ADMIN */
+    #adminPage{background:var(--bg);min-height:100vh;color:var(--text)}
+    #loginScreen{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center}
+    .login-card{background:var(--surface);border:1px solid var(--border);border-radius:1.2rem;padding:3rem 2.5rem;width:100%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.6);text-align:center}
+    .login-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--white);margin-bottom:.3rem}
+    .login-subtitle{font-size:.82rem;color:var(--text-muted);margin-bottom:2rem;letter-spacing:.04em;text-transform:uppercase}
+    .login-icon{font-size:3rem;margin-bottom:1.2rem}
+    .login-label{display:block;text-align:left;font-size:.78rem;font-weight:600;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+    .login-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:1rem;padding:.85rem 1rem;border-radius:.5rem;outline:none;transition:border-color .2s;margin-bottom:1.2rem}
+    .login-input:focus{border-color:var(--red)}
+    .login-btn{width:100%;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;padding:.9rem;border-radius:.5rem;transition:background .2s,transform .1s}
+    .login-btn:hover{background:var(--red-dark);transform:translateY(-1px)}
+    .login-error{background:rgba(200,16,46,.15);border:1px solid rgba(200,16,46,.4);color:#f87171;font-size:.83rem;padding:.6rem .9rem;border-radius:.4rem;margin-top:.8rem;display:none}
+    .back-to-site{display:inline-block;margin-top:1.2rem;font-size:.8rem;color:var(--text-muted);cursor:pointer;text-decoration:underline}
+    .back-to-site:hover{color:var(--text)}
+    #adminApp{display:none}
+    .admin-topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .admin-brand{display:flex;align-items:center;gap:.75rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:900;color:var(--white)}
+    .admin-brand-badge{background:var(--red);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .55rem;border-radius:.25rem;letter-spacing:.06em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+    .topbar-right{display:flex;align-items:center;gap:1rem}
+    .view-site-btn{display:inline-flex;align-items:center;gap:.4rem;background:transparent;border:1px solid var(--border);color:var(--text-muted);font-size:.8rem;font-weight:600;padding:.45rem .9rem;border-radius:.35rem;cursor:pointer;transition:border-color .2s,color .2s;font-family:'DM Sans',sans-serif}
+    .view-site-btn:hover{border-color:var(--red);color:var(--red)}
+    .logout-btn{background:transparent;border:none;color:var(--text-muted);cursor:pointer;font-size:.82rem;font-weight:600;font-family:'DM Sans',sans-serif;padding:.45rem .8rem;border-radius:.35rem;transition:color .2s}
+    .logout-btn:hover{color:#f87171}
+    .admin-body{padding:2rem;max-width:1200px;margin:0 auto}
+    .stats-bar{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+    .stat-pill{background:var(--surface);border:1px solid var(--border);border-radius:.6rem;padding:.8rem 1.4rem;display:flex;align-items:center;gap:.7rem}
+    .stat-pill-val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--white)}
+    .stat-pill-label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em}
+    .stat-pill.green .stat-pill-val{color:#4ade80}
+    .stat-pill.red-col .stat-pill-val{color:#f87171}
+    .section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+    .section-hdr h2{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--white)}
+    .add-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.88rem;padding:.65rem 1.4rem;border-radius:.4rem;transition:background .2s,transform .1s}
+    .add-btn:hover{background:var(--red-dark);transform:translateY(-1px)}
+    .menu-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:.85rem;overflow:hidden}
+    table{width:100%;border-collapse:collapse}
+    thead{background:var(--surface2)}
+    th{padding:.85rem 1rem;text-align:left;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);border-bottom:1px solid var(--border)}
+    td{padding:.85rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle;font-size:.9rem}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(255,255,255,.02)}
+    .item-thumb{width:52px;height:52px;border-radius:.4rem;object-fit:cover;background:var(--surface2)}
+    .item-name{font-weight:600;color:var(--white);font-size:.95rem}
+    .item-desc{font-size:.78rem;color:var(--text-muted);margin-top:.15rem;max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tag-badge{display:inline-block;background:rgba(200,16,46,.2);color:#f87171;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .6rem;border-radius:2rem}
+    .price-badge{font-weight:700;color:#4ade80;font-size:.92rem}
+    .toggle-switch{position:relative;width:44px;height:24px;display:inline-block;cursor:pointer}
+    .toggle-switch input{opacity:0;width:0;height:0}
+    .toggle-slider{position:absolute;inset:0;background:#333;border-radius:12px;transition:.25s}
+    .toggle-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+    input:checked + .toggle-slider{background:var(--red)}
+    input:checked + .toggle-slider::before{transform:translateX(20px)}
+    .action-btn{background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;font-size:.78rem;font-weight:600;font-family:'DM Sans',sans-serif;padding:.35rem .75rem;border-radius:.3rem;transition:all .15s;margin-right:.3rem}
+    .action-btn:hover{border-color:var(--red);color:var(--red)}
+    .action-btn.del:hover{border-color:#f87171;color:#f87171}
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+    .modal-overlay.open{display:flex}
+    .modal{background:var(--surface);border:1px solid var(--border);border-radius:1rem;width:100%;max-width:540px;box-shadow:0 30px 80px rgba(0,0,0,.6);max-height:90vh;overflow-y:auto}
+    .modal-header{padding:1.4rem 1.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .modal-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--white)}
+    .modal-close{background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;line-height:1;transition:color .2s}
+    .modal-close:hover{color:var(--white)}
+    .modal-body{padding:1.6rem}
+    .form-row{margin-bottom:1.2rem}
+    .form-label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.4rem}
+    .form-input,.form-select,.form-textarea{width:100%;background:var(--surface2);border:1.5px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;padding:.75rem 1rem;border-radius:.5rem;outline:none;transition:border-color .2s}
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--red)}
+    .form-textarea{resize:vertical;min-height:80px}
+    .form-select option{background:var(--surface2)}
+    .img-upload-area{border:2px dashed var(--border);border-radius:.6rem;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
+    .img-upload-area:hover{border-color:var(--red);background:rgba(200,16,46,.05)}
+    .img-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+    .img-upload-icon{font-size:2rem;margin-bottom:.5rem}
+    .img-upload-text{font-size:.82rem;color:var(--text-muted)}
+    .img-upload-text strong{color:var(--red)}
+    .img-preview-wrap{margin-top:1rem;display:none}
+    .img-preview{width:100%;height:160px;object-fit:cover;border-radius:.4rem;display:block}
+    .img-url-divider{display:flex;align-items:center;gap:.8rem;margin:.8rem 0;color:var(--text-muted);font-size:.78rem}
+    .img-url-divider::before,.img-url-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+    .modal-footer{padding:1.2rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:.8rem;justify-content:flex-end}
+    .cancel-btn{background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;padding:.65rem 1.3rem;border-radius:.4rem;transition:all .15s}
+    .cancel-btn:hover{border-color:var(--text-muted);color:var(--white)}
+    .save-btn{background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;padding:.65rem 1.5rem;border-radius:.4rem;transition:background .2s}
+    .save-btn:hover{background:var(--red-dark)}
+    .toast{position:fixed;bottom:2rem;right:2rem;z-index:9999;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:.9rem;font-weight:600;padding:.8rem 1.4rem;border-radius:.6rem;box-shadow:0 8px 30px rgba(0,0,0,.4);transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.success{border-color:#4ade80;color:#4ade80}
+    .toast.error{border-color:#f87171;color:#f87171}
+    .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;display:none;align-items:center;justify-content:center}
+    .confirm-overlay.open{display:flex}
+    .confirm-box{background:var(--surface);border:1px solid var(--border);border-radius:.85rem;padding:2rem;max-width:360px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+    .confirm-box p{color:var(--text);font-size:.97rem;line-height:1.6;margin-bottom:1.5rem}
+    .confirm-box strong{color:#f87171}
+    .confirm-actions{display:flex;gap:.8rem;justify-content:center}
+    .confirm-del{background:#f87171;color:#fff;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;padding:.65rem 1.4rem;border-radius:.4rem}
+    .confirm-cancel{background:transparent;border:1px solid var(--border);color:var(--text-muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;padding:.65rem 1.2rem;border-radius:.4rem}
+    @media(max-width:700px){
+      .admin-body{padding:1rem}
+      table thead{display:none}
+      table tr{display:block;background:var(--surface2);border-radius:.6rem;margin-bottom:1rem;padding:1rem;border:1px solid var(--border)}
+      table td{display:flex;align-items:center;justify-content:space-between;border:none;padding:.4rem 0;font-size:.85rem}
+      table td::before{content:attr(data-label);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);flex-shrink:0;margin-right:1rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- MAIN WEBSITE -->
+<div id="sitePage">
+  <nav>
+    <a class="nav-logo" href="#">Ohemaa Chopbar</a>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#" class="nav-admin-link" onclick="showAdminPage(event)">Admin</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">&#127468;&#127469; Authentic Ghanaian Cuisine &middot; Ofankor Barrier</div>
+      <h1>Taste the <span>Real</span> Ghana.</h1>
+      <p class="hero-sub">Home of the finest fufu, banku &amp; Ghanaian delicacies. Cooked fresh with love, served with soul &mdash; right here at Ofankor Barrier.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/233559382161?text=Hello%20Ohemaa%20Chopbar%2C%20I%20would%20like%20to%20place%20an%20order%21" class="btn-primary" target="_blank">&#128722; Order on WhatsApp</a>
+        <a href="#menu" class="btn-secondary">View Menu</a>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <div class="hero-img-frame">
+        <img src="https://www.imperialrecipes.com/wp-content/uploads/2023/10/Ghanaian-Light-Soup-with-Fufu.jpg" alt="Fufu with light soup" onerror="this.style.display='none'"/>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip">
+    <span>&#128293; Fresh Daily</span>
+    <span>&#129379; Fufu &middot; Banku &middot; Amotuo</span>
+    <span>&#129385; Goat &middot; Cow &middot; Chicken &middot; Fish &middot; Tilapia</span>
+    <span>&#128205; Ofankor Barrier, Accra</span>
+    <span>&#128242; Order via WhatsApp</span>
+  </div>
+
+  <section class="section" id="menu">
+    <p class="section-label">Our Menu</p>
+    <h2 class="section-title">What We Serve</h2>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <section class="order-section" id="order">
+    <p class="section-label">Place Your Order</p>
+    <h2 class="section-title">Build Your Meal</h2>
+    <p>Pick what you want and send your order straight to us on WhatsApp. Fast, easy and delicious!</p>
+
+    <div id="orderBuilder" style="max-width:700px;margin:0 auto;text-align:left;position:relative;z-index:1;">
+
+      <!-- STEP 1: Swallow -->
+      <div class="order-step">
+        <div class="order-step-label">1. Choose your base <span style="font-size:.78rem;color:rgba(255,253,249,.45);font-weight:400">(pick one)</span></div>
+        <div class="order-chips" id="chipsSwallow"></div>
+      </div>
+
+      <!-- STEP 2: Protein / Fish -->
+      <div class="order-step">
+        <div class="order-step-label">2. Choose your protein / fish <span style="font-size:.78rem;color:rgba(255,253,249,.45);font-weight:400">(pick one or more)</span></div>
+        <div class="order-chips" id="chipsProtein"></div>
+      </div>
+
+      <!-- CART SUMMARY -->
+      <div id="orderSummary" style="display:none;background:rgba(255,253,249,.06);border:1px solid rgba(255,253,249,.15);border-radius:.75rem;padding:1.3rem 1.5rem;margin-top:1.5rem;">
+        <div style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">Your Order</div>
+        <div id="summaryLines" style="color:rgba(255,253,249,.85);font-size:.95rem;line-height:2;"></div>
+        <div style="border-top:1px solid rgba(255,253,249,.15);margin-top:.8rem;padding-top:.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+          <span style="font-size:.82rem;color:rgba(255,253,249,.5);">Estimated total</span>
+          <span id="orderTotal" style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);"></span>
+        </div>
+      </div>
+
+      <!-- SEND BUTTON -->
+      <div style="margin-top:1.5rem;text-align:center;">
+        <button id="sendOrderBtn" onclick="sendOrder()" disabled style="display:inline-flex;align-items:center;gap:.75rem;background:#25D366;color:#fff;font-weight:700;font-size:1.05rem;padding:1rem 2.5rem;border-radius:.5rem;border:none;cursor:pointer;opacity:.4;transition:opacity .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(37,211,102,.25);">
+          <svg viewBox="0 0 24 24" fill="#fff" width="22" height="22"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Send Order on WhatsApp
+        </button>
+        <div style="margin-top:.7rem;font-size:.78rem;color:rgba(255,253,249,.35);">Select at least a base and a protein to place your order</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <div class="about-visual">
+      <img src="https://www.africanbites.com/wp-content/uploads/2014/07/Ghanaian-Banku-and-Tilapia.jpg" alt="Banku and tilapia"/>
+    </div>
+    <div class="about-text">
+      <p class="section-label">About Us</p>
+      <h2 class="section-title">Ohemaa Chopbar &mdash; Where Tradition Meets Taste</h2>
+      <p>We are a proudly Ghanaian chopbar located at the heart of Ofankor Barrier. Our mission is simple: serve the most authentic, flavourful Ghanaian meals made from fresh ingredients every single day.</p>
+      <p>Whether you&rsquo;re craving a steaming bowl of fufu with light soup, banku and tilapia, or a hearty plate of amotuo &mdash; Ohemaa Chopbar is your home away from home.</p>
+      <div class="facts">
+        <div class="fact"><div class="fact-num">100%</div><div class="fact-label">Fresh Daily</div></div>
+        <div class="fact"><div class="fact-num" id="menuCount">9+</div><div class="fact-label">Menu Items</div></div>
+        <div class="fact"><div class="fact-num">&#127468;&#127469;</div><div class="fact-label">Authentic</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="contact-info">
+      <h3>Get In Touch</h3>
+      <div class="contact-item">
+        <div class="contact-icon">&#128205;</div>
+        <div class="contact-item-text"><p>Location</p><p>Ofankor Barrier, Accra, Ghana</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#128222;</div>
+        <div class="contact-item-text"><p>Phone / WhatsApp</p><p><a href="tel:+233559382161">0559 382 161</a></p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#9993;&#65039;</div>
+        <div class="contact-item-text"><p>Email</p><p><a href="/cdn-cgi/l/email-protection#3a55525f575b5b5952554a585b487a5d575b535614595557"><span class="__cf_email__" data-cfemail="d9b6b1bcb4b8b8bab1b6a9bbb8ab99beb4b8b0b5f7bab6b4">[email&#160;protected]</span></a></p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#128248;</div>
+        <div class="contact-item-text"><p>Instagram</p><p><a href="https://instagram.com/ohemaachopbar" target="_blank">@ohemaachopbar</a></p></div>
+      </div>
+      <div class="social-links">
+        <a href="https://wa.me/233559382161" class="social-link whatsapp" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://instagram.com/ohemaachopbar" class="social-link instagram" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </a>
+        <a href="/cdn-cgi/l/email-protection#adc2c5c8c0cccccec5c2ddcfccdfedcac0ccc4c183cec2c0" class="social-link gmail">
+          <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+          Email Us
+        </a>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <div class="map-emoji">&#128205;</div>
+      <strong>Ofankor Barrier, Accra</strong>
+      <p>We are conveniently located at Ofankor Barrier. Easy to find, impossible to forget!</p>
+      <a href="https://maps.google.com/?q=Ofankor+Barrier+Accra+Ghana" target="_blank" class="btn-primary" style="margin-top:.5rem;font-size:.85rem;padding:.7rem 1.5rem;">Open in Google Maps &rarr;</a>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-brand">Ohemaa Chopbar</span>
+    <p>&#128205; Ofankor Barrier, Accra &middot; &#128222; 0559 382 161</p>
+    <p>&copy; 2025 Ohemaa Chopbar. All rights reserved.</p>
+  </footer>
+</div>
+
+
+<!-- ADMIN PANEL -->
+<div id="adminPage">
+
+  <div id="loginScreen">
+    <div class="login-card">
+      <div class="login-icon">&#128272;</div>
+      <div class="login-logo">Ohemaa Chopbar</div>
+      <div class="login-subtitle">Admin Panel &middot; Staff Only</div>
+      <label class="login-label" for="adminPass">Password</label>
+      <input class="login-input" type="password" id="adminPass" placeholder="Enter admin password" autocomplete="current-password"/>
+      <button class="login-btn" onclick="attemptLogin()">Sign In &rarr;</button>
+      <div class="login-error" id="loginError">&#10060; Incorrect password. Please try again.</div>
+      <div class="back-to-site" onclick="showSitePage()">&larr; Back to website</div>
+    </div>
+  </div>
+
+  <div id="adminApp">
+    <div class="admin-topbar">
+      <div class="admin-brand">Ohemaa Chopbar <span class="admin-brand-badge">Admin</span></div>
+      <div class="topbar-right">
+        <button class="view-site-btn" onclick="showSitePage()">&#127760; View Website</button>
+        <button class="logout-btn" onclick="logout()">Sign Out</button>
+      </div>
+    </div>
+    <div class="admin-body">
+      <div class="stats-bar" id="statsBar"></div>
+      <div class="section-hdr">
+        <h2>Menu Items</h2>
+        <button class="add-btn" onclick="openModal(0)">&#65291; Add New Item</button>
+      </div>
+      <div class="menu-table-wrap">
+        <table>
+          <thead><tr><th>Image</th><th>Item</th><th>Category</th><th>Price</th><th>Available</th><th>Actions</th></tr></thead>
+          <tbody id="menuTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Add Menu Item</div>
+        <button class="modal-close" onclick="closeModal()">&#10005;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <label class="form-label">Item Name *</label>
+          <input class="form-input" id="fName" type="text" placeholder="e.g. Fufu"/>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Description *</label>
+          <textarea class="form-textarea" id="fDesc" placeholder="Short description of the dish..."></textarea>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Price (GH&#8373;)</label>
+          <input class="form-input" id="fPrice" type="number" min="0" step="0.5" placeholder="e.g. 25"/>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="fTag">
+            <option value="Swallow">Swallow</option>
+            <option value="Protein">Protein</option>
+            <option value="Fish">Fish</option>
+            <option value="Soup">Soup</option>
+            <option value="Sides">Sides</option>
+            <option value="Drinks">Drinks</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Food Image</label>
+          <div class="img-upload-area">
+            <input type="file" accept="image/*" id="imgFileInput" onchange="handleFileUpload(event)"/>
+            <div class="img-upload-icon">&#128247;</div>
+            <div class="img-upload-text"><strong>Click to upload</strong> a photo from your device<br/><span style="font-size:.72rem">JPG, PNG, WEBP &middot; Max 5MB</span></div>
+          </div>
+          <div class="img-url-divider">or paste an image URL</div>
+          <input class="form-input" id="fImg" type="url" placeholder="https://example.com/food.jpg" oninput="previewFromUrl()"/>
+          <div class="img-preview-wrap" id="imgPreviewWrap">
+            <img class="img-preview" id="imgPreview" src="" alt="Preview"/>
+          </div>
+        </div>
+        <div class="form-row" style="display:flex;align-items:center;gap:.8rem">
+          <label class="toggle-switch">
+            <input type="checkbox" id="fAvailable" checked/>
+            <span class="toggle-slider"></span>
+          </label>
+          <span style="font-size:.9rem;color:var(--text)">Item is available today</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+        <button class="save-btn" onclick="saveItem()">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <p>Delete <strong id="confirmItemName"></strong> from the menu?<br/>This cannot be undone.</p>
+      <div class="confirm-actions">
+        <button class="confirm-cancel" onclick="closeConfirm()">Cancel</button>
+        <button class="confirm-del" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* PAGE SWITCHING */
+  function showAdminPage(e) {
+    if (e) e.preventDefault();
+    document.getElementById('sitePage').style.display = 'none';
+    document.getElementById('adminPage').style.display = 'block';
+    document.body.style.background = '#0F0F0F';
+    if (sessionStorage.getItem('ohemaa_admin') === '1') {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminApp').style.display = 'block';
+      renderTable();
+      renderStats();
+    }
+  }
+
+  function showSitePage() {
+    document.getElementById('adminPage').style.display = 'none';
+    document.getElementById('sitePage').style.display = 'block';
+    document.body.style.background = '#FFFDF9';
+    renderMenu();
+  }
+
+  /* DATA */
+  var DEFAULT_MENU = [
+    {id:1, name:"Fufu",      price:25, tag:"Swallow",  available:true,  desc:"Smooth pounded cassava & plantain served with your choice of rich Ghanaian soup.",           img:"https://www.imperialrecipes.com/wp-content/uploads/2023/10/Ghanaian-Light-Soup-with-Fufu.jpg"},
+    {id:2, name:"Banku",     price:20, tag:"Swallow",  available:true,  desc:"Fermented corn & cassava dough, perfectly paired with pepper sauce, fish or soup.",           img:"https://www.africanbites.com/wp-content/uploads/2014/07/Ghanaian-Banku-and-Tilapia.jpg"},
+    {id:3, name:"Amotuo",    price:22, tag:"Swallow",  available:true,  desc:"Soft, glutinous rice balls served with groundnut or palmnut soup.",                           img:"https://www.196flavors.com/wp-content/uploads/2022/01/omo-tuo-1-2.jpg"},
+    {id:4, name:"Goat Meat", price:35, tag:"Protein",  available:true,  desc:"Tender, slow-cooked goat meat in a flavourful Ghanaian broth or light soup.",                 img:"https://cheflolaskitchen.com/wp-content/uploads/2021/02/Ghanaian-Goat-Meat-Stew-16.jpg"},
+    {id:5, name:"Tilapia",   price:40, tag:"Fish",     available:true,  desc:"Fresh whole tilapia grilled or fried to perfection with Ghanaian spices.",                   img:"https://tastywayskitchen.com/wp-content/uploads/2022/06/Grilled-Tilapia-Ghana-Style-1.jpg"},
+    {id:6, name:"Cow Meat",  price:30, tag:"Protein",  available:true,  desc:"Rich, hearty beef cuts served in spiced tomato stew or light soup.",                         img:"https://www.africanbites.com/wp-content/uploads/2016/11/Beef-Stew-African.jpg"},
+    {id:7, name:"Chicken",   price:28, tag:"Protein",  available:true,  desc:"Juicy chicken pieces stewed in authentic Ghanaian tomato & pepper sauce.",                   img:"https://www.africanbites.com/wp-content/uploads/2014/06/Ghana-chicken-stew.jpg"},
+    {id:8, name:"Dry Meat",  price:18, tag:"Protein",  available:true,  desc:"Smoky, intensely-flavoured dried meat — a Ghanaian classic for extra depth.",                img:"https://www.africanbites.com/wp-content/uploads/2021/01/Suya-Spice-13.jpg"},
+    {id:9, name:"Fish",      price:30, tag:"Fish",     available:true,  desc:"Freshly prepared fish in aromatic palm oil stew with tomatoes, peppers & spices.",           img:"https://www.africanbites.com/wp-content/uploads/2020/11/Ghanaian-Fish-Stew.jpg"}
+  ];
+
+  function getMenu() {
+    try {
+      var s = localStorage.getItem('ohemaa_menu');
+      return s ? JSON.parse(s) : DEFAULT_MENU;
+    } catch(err) { return DEFAULT_MENU; }
+  }
+
+  function saveMenu(menu) {
+    try { localStorage.setItem('ohemaa_menu', JSON.stringify(menu)); } catch(err) {}
+  }
+
+  /* ORDER BUILDER */
+  var selectedSwallow = null;
+  var selectedProteins = [];
+
+  function buildOrderUI() {
+    var menu = getMenu();
+    var swallows = menu.filter(function(i){ return i.tag === 'Swallow'; });
+    var proteins = menu.filter(function(i){ return i.tag === 'Protein' || i.tag === 'Fish'; });
+
+    function chipHTML(item, type) {
+      var cls = 'order-chip' + (!item.available ? ' unavail' : '');
+      return '<div class="' + cls + '" data-id="' + item.id + '" data-type="' + type + '" onclick="toggleChip(this,' + item.id + ',\'' + type + '\')">' +
+        item.name +
+        '<span class="chip-price">GH₵' + item.price + '</span>' +
+      '</div>';
+    }
+
+    document.getElementById('chipsSwallow').innerHTML = swallows.map(function(i){ return chipHTML(i,'swallow'); }).join('');
+    document.getElementById('chipsProtein').innerHTML = proteins.map(function(i){ return chipHTML(i,'protein'); }).join('');
+  }
+
+  function toggleChip(el, id, type) {
+    var menu = getMenu();
+    var item = menu.find(function(i){ return i.id === id; });
+    if (!item) return;
+
+    if (type === 'swallow') {
+      // deselect previous swallow chip
+      document.querySelectorAll('#chipsSwallow .order-chip').forEach(function(c){ c.classList.remove('selected'); });
+      if (selectedSwallow && selectedSwallow.id === id) {
+        selectedSwallow = null;
+      } else {
+        selectedSwallow = item;
+        el.classList.add('selected');
+      }
+    } else {
+      var idx = selectedProteins.findIndex(function(i){ return i.id === id; });
+      if (idx > -1) {
+        selectedProteins.splice(idx, 1);
+        el.classList.remove('selected');
+      } else {
+        selectedProteins.push(item);
+        el.classList.add('selected');
+      }
+    }
+    updateOrderSummary();
+  }
+
+  function updateOrderSummary() {
+    var summary = document.getElementById('orderSummary');
+    var lines = document.getElementById('summaryLines');
+    var totalEl = document.getElementById('orderTotal');
+    var btn = document.getElementById('sendOrderBtn');
+
+    var hasSwallow = !!selectedSwallow;
+    var hasProtein = selectedProteins.length > 0;
+
+    if (!hasSwallow && !hasProtein) {
+      summary.style.display = 'none';
+      btn.disabled = true;
+      return;
+    }
+
+    summary.style.display = 'block';
+    var total = 0;
+    var html = '';
+
+    if (selectedSwallow) {
+      html += '<div>🍚 <strong>' + selectedSwallow.name + '</strong> — GH₵' + selectedSwallow.price + '</div>';
+      total += selectedSwallow.price;
+    }
+    selectedProteins.forEach(function(p) {
+      html += '<div>🍗 <strong>' + p.name + '</strong> — GH₵' + p.price + '</div>';
+      total += p.price;
+    });
+
+    lines.innerHTML = html;
+    totalEl.textContent = 'GH₵' + total;
+    btn.disabled = !(hasSwallow && hasProtein);
+  }
+
+  function sendOrder() {
+    if (!selectedSwallow || selectedProteins.length === 0) return;
+    var parts = ['Hello Ohemaa Chopbar! I would like to place an order:%0A'];
+    parts.push('Base: ' + selectedSwallow.name + ' (GH₵' + selectedSwallow.price + ')%0A');
+    selectedProteins.forEach(function(p) {
+      parts.push('Protein/Fish: ' + p.name + ' (GH₵' + p.price + ')%0A');
+    });
+    var total = selectedSwallow.price + selectedProteins.reduce(function(s,p){ return s + p.price; }, 0);
+    parts.push('Total: GH₵' + total + '%0AThank you!');
+    window.open('https://wa.me/233559382161?text=' + parts.join(''), '_blank');
+  }
+
+  /* RENDER PUBLIC MENU */
+  function renderMenu() {
+    var menu = getMenu();
+    var grid = document.getElementById('menuGrid');
+    if (!grid) return;
+    var countEl = document.getElementById('menuCount');
+    if (countEl) countEl.textContent = menu.filter(function(i){return i.available;}).length + '+';
+    grid.innerHTML = menu.map(function(item) {
+      return '<div class="menu-card ' + (item.available ? '' : 'unavailable') + '">' +
+        '<img class="menu-card-img" src="' + item.img + '" alt="' + item.name + '" onerror="this.src=\'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600\'"/>' +
+        '<div class="menu-card-body">' +
+          '<div class="menu-card-title">' + item.name + (!item.available ? '<span class="unavailable-badge">Unavailable</span>' : '') + '</div>' +
+          '<div class="menu-card-desc">' + item.desc + '</div>' +
+          '<div class="menu-card-footer">' +
+            '<span class="menu-card-tag">' + item.tag + '</span>' +
+            (item.price ? '<span class="menu-card-price">GH&#8373; ' + item.price + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ADMIN AUTH */
+  var ADMIN_PASSWORD = 'ohemaa2025';
+
+  function attemptLogin() {
+    var val = document.getElementById('adminPass').value;
+    if (val === ADMIN_PASSWORD) {
+      sessionStorage.setItem('ohemaa_admin', '1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminApp').style.display = 'block';
+      renderTable();
+      renderStats();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('adminPass').value = '';
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem('ohemaa_admin');
+    document.getElementById('adminApp').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('adminPass').value = '';
+  }
+
+  document.getElementById('adminPass').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') attemptLogin();
+  });
+
+  /* ADMIN STATS */
+  function renderStats() {
+    var menu = getMenu();
+    var avail = menu.filter(function(i){return i.available;}).length;
+    document.getElementById('statsBar').innerHTML =
+      '<div class="stat-pill"><div><div class="stat-pill-val">' + menu.length + '</div><div class="stat-pill-label">Total Items</div></div></div>' +
+      '<div class="stat-pill green"><div><div class="stat-pill-val">' + avail + '</div><div class="stat-pill-label">Available</div></div></div>' +
+      '<div class="stat-pill red-col"><div><div class="stat-pill-val">' + (menu.length - avail) + '</div><div class="stat-pill-label">Unavailable</div></div></div>';
+  }
+
+  /* ADMIN TABLE */
+  function renderTable() {
+    document.getElementById('menuTableBody').innerHTML = getMenu().map(function(item) {
+      return '<tr>' +
+        '<td data-label="Image"><img class="item-thumb" src="' + item.img + '" alt="' + item.name + '" onerror="this.src=\'https://placehold.co/52x52/222/888?text=?\'" /></td>' +
+        '<td data-label="Item"><div class="item-name">' + item.name + '</div><div class="item-desc">' + item.desc + '</div></td>' +
+        '<td data-label="Category"><span class="tag-badge">' + item.tag + '</span></td>' +
+        '<td data-label="Price"><span class="price-badge">' + (item.price ? 'GH&#8373; ' + item.price : '&mdash;') + '</span></td>' +
+        '<td data-label="Available"><label class="toggle-switch"><input type="checkbox" ' + (item.available ? 'checked' : '') + ' onchange="toggleAvailability(' + item.id + ')"/><span class="toggle-slider"></span></label></td>' +
+        '<td data-label="Actions"><button class="action-btn" onclick="openModal(' + item.id + ')">&#9999;&#65039; Edit</button><button class="action-btn del" onclick="askDelete(' + item.id + ',\'' + item.name.replace(/'/g,"\\'") + '\')">&#128465; Delete</button></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function toggleAvailability(id) {
+    var menu = getMenu();
+    var item = menu.find(function(i){return i.id === id;});
+    if (item) {
+      item.available = !item.available;
+      saveMenu(menu);
+      renderTable(); renderStats(); renderMenu();
+      showToast(item.available ? '&#9989; ' + item.name + ' is now available' : '&#9940; ' + item.name + ' marked unavailable', item.available ? 'success' : 'error');
+    }
+  }
+
+  /* ADMIN MODAL */
+  var editingId = null;
+
+  function openModal(id) {
+    editingId = id || null;
+    document.getElementById('modalTitle').textContent = editingId ? 'Edit Menu Item' : 'Add New Item';
+    document.getElementById('imgPreviewWrap').style.display = 'none';
+    if (editingId) {
+      var item = getMenu().find(function(i){return i.id === editingId;});
+      if (!item) return;
+      document.getElementById('fName').value = item.name;
+      document.getElementById('fDesc').value = item.desc;
+      document.getElementById('fTag').value = item.tag;
+      document.getElementById('fPrice').value = item.price || '';
+      document.getElementById('fImg').value = item.img || '';
+      document.getElementById('fAvailable').checked = item.available;
+      if (item.img) {
+        document.getElementById('imgPreview').src = item.img;
+        document.getElementById('imgPreviewWrap').style.display = 'block';
+      }
+    } else {
+      document.getElementById('fName').value = '';
+      document.getElementById('fDesc').value = '';
+      document.getElementById('fTag').value = 'Swallow';
+      document.getElementById('fPrice').value = '';
+      document.getElementById('fImg').value = '';
+      document.getElementById('fAvailable').checked = true;
+    }
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    editingId = null;
+  }
+
+  function saveItem() {
+    var name      = document.getElementById('fName').value.trim();
+    var desc      = document.getElementById('fDesc').value.trim();
+    var tag       = document.getElementById('fTag').value;
+    var price     = parseFloat(document.getElementById('fPrice').value) || 0;
+    var img       = document.getElementById('fImg').value.trim();
+    var available = document.getElementById('fAvailable').checked;
+    if (!name || !desc) { showToast('Name and description are required.', 'error'); return; }
+    var menu = getMenu();
+    if (editingId) {
+      var item = menu.find(function(i){return i.id === editingId;});
+      if (item) { item.name = name; item.desc = desc; item.tag = tag; item.price = price; item.img = img || item.img; item.available = available; }
+      showToast('"' + name + '" updated!', 'success');
+    } else {
+      var newId = menu.length ? Math.max.apply(null, menu.map(function(i){return i.id;})) + 1 : 1;
+      menu.push({id: newId, name: name, desc: desc, tag: tag, price: price, available: available, img: img || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600'});
+      showToast('"' + name + '" added!', 'success');
+    }
+    saveMenu(menu); renderTable(); renderStats(); renderMenu(); buildOrderUI(); closeModal();
+  }
+
+  /* FILE UPLOAD */
+  function handleFileUpload(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { showToast('File too large (max 5MB)', 'error'); return; }
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      document.getElementById('fImg').value = ev.target.result;
+      document.getElementById('imgPreview').src = ev.target.result;
+      document.getElementById('imgPreviewWrap').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function previewFromUrl() {
+    var url  = document.getElementById('fImg').value.trim();
+    var wrap = document.getElementById('imgPreviewWrap');
+    if (url) {
+      document.getElementById('imgPreview').src = url;
+      wrap.style.display = 'block';
+      document.getElementById('imgPreview').onerror = function(){ wrap.style.display = 'none'; };
+    } else {
+      wrap.style.display = 'none';
+    }
+  }
+
+  /* DELETE */
+  var deleteTargetId = null;
+
+  function askDelete(id, name) {
+    deleteTargetId = id;
+    document.getElementById('confirmItemName').textContent = name;
+    document.getElementById('confirmOverlay').classList.add('open');
+  }
+  function closeConfirm() {
+    document.getElementById('confirmOverlay').classList.remove('open');
+    deleteTargetId = null;
+  }
+  function confirmDelete() {
+    if (!deleteTargetId) return;
+    saveMenu(getMenu().filter(function(i){return i.id !== deleteTargetId;}));
+    renderTable(); renderStats(); renderMenu();
+    showToast('Item deleted.', 'error');
+    closeConfirm();
+  }
+
+  /* TOAST */
+  var toastTimer = null;
+  function showToast(msg, type) {
+    type = type || 'success';
+    var t = document.getElementById('toast');
+    t.innerHTML = msg;
+    t.classList.remove('show','success','error');
+    void t.offsetWidth;
+    t.classList.add('show', type);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 3000);
+  }
+
+  /* INIT */
+  renderMenu();
+  buildOrderUI();
+</script>
+</body>
+</html>
